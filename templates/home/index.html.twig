@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Contacts{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4">Vos Contacts</h1>
+    <a href="{{ path('add')}}" class="btn btn-primary m-3">Ajouter un contact</a>
+    
+    <div class="row">
+        {% for contact in user.contacts %}
+            <div class="col-md-4 mb-4">
+                <div class="card d-flex flex-row">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ contact.firstname }} {{ contact.lastname }}</h5>
+                        {% if contact.mail is empty %}
+                            <span class="badge badge-danger">Pas d'e-mail</span>
+                        {% else %}
+                            <p class="card-text">{{ contact.mail }}</p>
+                        {% endif %}
+                        <p class="card-text">{{ contact.phonenumber }}</p>
+                        <a href="{{ path('edit', {'id': contact.id}) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ path('delete', {'id': contact.id}) }}" class="btn btn-danger">Supprimer</a>
+                    </div>
+                    {% if contact.image is not empty %}
+                        <img src="{{ asset('assets/uploads/') ~ contact.image }}" class="img-thumbnail border-0 w-100" alt="Image Contact" style="max-width: 150px;">
+                    {% else %}
+                        <span class="badge bg-danger">Pas d'image</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
