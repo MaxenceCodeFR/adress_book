@@ -1,0 +1,20 @@
+<div class="float-end">
+    <button class="btn btn-warning btn-lg" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+        Navigation
+    </button> 
+</div>
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+  {% if app.user %}
+   <p class="offcanvas-title display-6" id="offcanvasWithBothOptionsLabel">Bonjour, {{app.user.firstname}}</p> 
+{% endif %}
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Vos Contacts</p>
+    <ul>
+      <li><a href="{{path('home')}}">Tout les contact</a></li>
+    </ul>
+    <a href="{{path('logout')}}">Se deconnecter</a>
+  </div>
+</div>

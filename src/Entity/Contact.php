@@ -24,7 +24,7 @@ class Contact
     #[ORM\Column]
     private ?int $phonenumber = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail = null;
 
     #[ORM\Column(length: 255, nullable: true)]

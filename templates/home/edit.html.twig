@@ -3,7 +3,7 @@
 {% block body %}
 
 <h1>Editer un contact</h1>
- {% include 'home/_form.html.twig' %}
+{% include 'home/_form.html.twig' with {'button_name': 'Modifier', 'title_name': 'Editer un contact'} %}
 
 
 {% endblock %}

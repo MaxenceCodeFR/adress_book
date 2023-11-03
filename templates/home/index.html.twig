@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ contact.firstname }} {{ contact.lastname }}</h5>
                         {% if contact.mail is empty %}
-                            <span class="badge badge-danger">Pas d'e-mail</span>
+                            <span class="badge bg-danger">Pas d'e-mail</span>
                         {% else %}
                             <p class="card-text">{{ contact.mail }}</p>
                         {% endif %}

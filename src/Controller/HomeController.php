@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Data\SearchData;
+use App\Form\SearchFormType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,14 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+
     #[Route('/', name: 'home')]
-    public function index(ContactRepository $contact): Response
+    public function index(ContactRepository $contact, Request $request): Response
     {
-
         $user = $this->getUser();
-
         $contact->findBy(['user' => $user]);
-        // dd($user);
+
+
         return $this->render('home/index.html.twig', compact('user'));
     }
 

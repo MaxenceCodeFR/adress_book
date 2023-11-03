@@ -20,6 +20,12 @@
 
     </head>
     <body>
-        {% block body %}{% endblock %}
+    {% if app.request.attributes.get('_route') not in ['app_register', 'login'] %}
+        {% include 'commons/_nav.html.twig' %}
+        {# Inclure la barre de navigation ici #}
+    {% endif %}
+        {% block body %}
+
+        {% endblock %}
     </body>
 </html>
