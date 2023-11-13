@@ -37,12 +37,13 @@ class Contact
     #[ORM\ManyToOne(inversedBy: 'contacts')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: GroupContact::class)]
-    private Collection $groupContacts;
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'contact')]
+    private Collection $groupes;
+
 
     public function __construct()
     {
-        $this->groupContacts = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,30 +136,27 @@ class Contact
     }
 
     /**
-     * @return Collection<int, GroupContact>
+     * @return Collection<int, Group>
      */
-    public function getGroupContacts(): Collection
+    public function getGroupes(): Collection
     {
-        return $this->groupContacts;
+        return $this->groupes;
     }
 
-    public function addGroupContact(GroupContact $groupContact): static
+    public function addGroupe(Group $groupe): static
     {
-        if (!$this->groupContacts->contains($groupContact)) {
-            $this->groupContacts->add($groupContact);
-            $groupContact->setContact($this);
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addContact($this);
         }
 
         return $this;
     }
 
-    public function removeGroupContact(GroupContact $groupContact): static
+    public function removeGroupe(Group $groupe): static
     {
-        if ($this->groupContacts->removeElement($groupContact)) {
-            // set the owning side to null (unless already changed)
-            if ($groupContact->getContact() === $this) {
-                $groupContact->setContact(null);
-            }
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeContact($this);
         }
 
         return $this;

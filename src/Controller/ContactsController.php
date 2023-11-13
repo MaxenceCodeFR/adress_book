@@ -18,7 +18,7 @@ class ContactsController extends AbstractController
         $contacts = $contacts->findBy(['user' => $user, 'category' => 1]);
 
 
-        return $this->render('groups/personnals.html.twig', compact('contacts'));
+        return $this->render('contacts/personnals.html.twig', compact('contacts'));
     }
 
     #[Route('/professionnals', name: 'professionnals')]
@@ -28,6 +28,6 @@ class ContactsController extends AbstractController
 
         $contacts = $contacts->findBy(['user' => $user, 'category' => 2]);
 
-        return $this->render('groups/professionnals.html.twig', compact('contacts'));
+        return $this->render('contacts/professionnals.html.twig', compact('contacts'));
     }
 }

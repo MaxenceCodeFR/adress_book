@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ group.name }}{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <h1>Liste des Contacts du Groupe "{{ group.name }}"</h1>
+        <div class="row">
+            {% for groupContact in groupContacts %}
+                <div class="col-md-3">
+                    <div class="card h-100 mb-4">
+                        {% if groupContact.image is not empty %}
+                            <img src="{{ asset('assets/uploads/' ~ groupContact.image) }}" class="card-img-top" alt="{{ groupContact.firstname }}">
+                        {% else %}
+                            <div class="card-img-top bg-danger text-white text-center p-3">Pas d'image</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ groupContact.firstname }} {{ groupContact.lastname }}</h5>
+                            {% if groupContact.mail is empty %}
+                                <span class="badge bg-danger">Pas d'e-mail</span>
+                            {% else %}
+                                <p class="card-text">{{ groupContact.mail }}</p>
+                            {% endif %}
+                            <p class="card-text">Téléphone: {{ groupContact.phonenumber }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

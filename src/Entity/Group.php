@@ -19,12 +19,16 @@ class Group
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: GroupContact::class)]
-    private Collection $groupContacts;
+
+    #[ORM\ManyToOne(inversedBy: 'groupe')]
+    private ?User $user = null;
+
+    #[ORM\ManyToMany(targetEntity: Contact::class, inversedBy: 'groupes')]
+    private Collection $contact;
 
     public function __construct()
     {
-        $this->groupContacts = new ArrayCollection();
+        $this->contact = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,32 +48,39 @@ class Group
         return $this;
     }
 
-    /**
-     * @return Collection<int, GroupContact>
-     */
-    public function getGroupContacts(): Collection
+
+    public function getUser(): ?User
     {
-        return $this->groupContacts;
+        return $this->user;
     }
 
-    public function addGroupContact(GroupContact $groupContact): static
+    public function setUser(?User $user): static
     {
-        if (!$this->groupContacts->contains($groupContact)) {
-            $this->groupContacts->add($groupContact);
-            $groupContact->setGroupe($this);
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContact(): Collection
+    {
+        return $this->contact;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contact->contains($contact)) {
+            $this->contact->add($contact);
         }
 
         return $this;
     }
 
-    public function removeGroupContact(GroupContact $groupContact): static
+    public function removeContact(Contact $contact): static
     {
-        if ($this->groupContacts->removeElement($groupContact)) {
-            // set the owning side to null (unless already changed)
-            if ($groupContact->getGroupe() === $this) {
-                $groupContact->setGroupe(null);
-            }
-        }
+        $this->contact->removeElement($contact);
 
         return $this;
     }

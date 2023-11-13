@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des groupes</h1>
+    <a href="{{path('groups_ajouter')}}" class="btn btn-success">Créer un groupe</a>
+    <ul>
+        {% for group in groups %}
+            <li>
+                <a href="{{path('groups_show', {id:group.id})}}">{{ group.name }}</a>
+                
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
